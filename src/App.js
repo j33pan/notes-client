@@ -12,6 +12,7 @@ export default function App() {
   const [isauthenticated, setIsauthenticated] = React.useState(false);
   const [isloading, setIsloading] = React.useState(false);
   const history = useHistory();
+  const [isconfirmuser, setIsconfirmuser] = React.useState(false);
 
   const getsession = async () => {
     try {
@@ -42,6 +43,17 @@ export default function App() {
     setIsloading(false);
   };
 
+  const handlesignup = async (email, pwd) => {
+    setIsloading(true);
+    try {
+      const newuser = await Auth.signUp({ username: email, password: pwd });
+      console.log(newuser);
+    } catch (error) {
+      handleErr(error);
+    }
+    setIsloading(false);
+  };
+
   React.useEffect(() => {
     getsession();
   }, []);
@@ -55,6 +67,8 @@ export default function App() {
             setIsauthenticated,
             handlelogout,
             handlelogin,
+            handlesignup,
+            isconfirmuser,
           }}
         >
           <NavBar />
