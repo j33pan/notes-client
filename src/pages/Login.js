@@ -2,21 +2,28 @@ import { Button, FormGroup, FormLabel, TextField, Typography } from '@material-u
 import React from 'react';
 
 export default function Login() {
+
+    const handlesubmit = (e) => {
+      e.preventDefault();
+    };
+
   return (
     <div>
-      <div style={{ padding:100 }}>
-        <form>
-            <FormGroup>
-                <FormLabel>Email</FormLabel>
-                <TextField variant='outlined' />
-            </FormGroup>
-        <br />
-            <FormGroup>
-                <FormLabel>Password</FormLabel>
-                <TextField variant='outlined' />
-            </FormGroup>
-            <br />
-            <Button variant='contained' color='primary' fullWidth>Login</Button>
+      <div style={{ }}>
+        <form onSubmit={handlesubmit}>
+          <FormGroup>
+            <FormLabel>Email</FormLabel>
+            <TextField type='email' variant='outlined' />
+          </FormGroup>
+          <br />
+          <FormGroup>
+            <FormLabel>Password</FormLabel>
+            <TextField type='password' variant='outlined' />
+          </FormGroup>
+          <br />
+          <Button type='submit' variant='contained' color='primary' fullWidth>
+            Login
+          </Button>
         </form>
       </div>
     </div>
