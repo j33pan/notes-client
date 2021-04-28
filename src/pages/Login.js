@@ -5,7 +5,7 @@ import { useHistory } from 'react-router';
 import { useNotesContext } from '../libs/contextLib';
 
 export default function Login() {
-  const { setIsauthenticated } = useNotesContext();
+  const { handlelogin } = useNotesContext();
   const [email, setemail] = React.useState('');
   const [pwd, setpwd] = React.useState('');
 
@@ -19,14 +19,7 @@ export default function Login() {
   const history = useHistory();
   const handlesubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await Auth.signIn(email, pwd);
-      setIsauthenticated(true);
-      history.push('/');
-      console.log(response);
-    } catch (error) {
-      alert(error.message);
-    }
+    handlelogin(email, pwd);
   };
 
   return (

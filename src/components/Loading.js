@@ -5,7 +5,7 @@ export default function Loading(props) {
   const { start } = props;
   return (
     <div>
-      <Backdrop open={start}>
+      <Backdrop open={start} style={{ zIndex: 99999 }}>
         <CircularProgress />
       </Backdrop>
     </div>

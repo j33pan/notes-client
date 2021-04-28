@@ -10,10 +10,9 @@ export default function App() {
   const [isgettingsession, setIsgettingsession] = React.useState(true);
   const [isauthenticated, setIsauthenticated] = React.useState(false);
   const [isloading, setIsloading] = React.useState(false);
+  const history = useHistory();
 
   const handleclick = () => setIsloading(!isloading);
-  const handlestartloading = () => setIsloading(true);
-  const handlestoploading = () => setIsloading(false);
 
   const getsession = async () => {
     try {
@@ -25,12 +24,24 @@ export default function App() {
     setIsgettingsession(false);
   };
 
-  const history = useHistory();
   const handlelogout = async () => {
     await Auth.signOut();
     setIsauthenticated(false);
     history.push('/login');
-  }
+  };
+
+  const handlelogin = async (email, pwd) => {
+    setIsloading(true);
+    try {
+      const response = await Auth.signIn(email, pwd);
+      setIsauthenticated(true);
+      history.push('/');
+      console.log(response);
+    } catch (error) {
+      alert(error.message);
+    }
+    setIsloading(false);
+  };
 
   React.useEffect(() => {
     getsession();
@@ -40,7 +51,12 @@ export default function App() {
     !isgettingsession && (
       <div>
         <NotesContext.Provider
-          value={{ isauthenticated, setIsauthenticated, handlelogout }}
+          value={{
+            isauthenticated,
+            setIsauthenticated,
+            handlelogout,
+            handlelogin,
+          }}
         >
           <NavBar />
           <div
@@ -52,9 +68,6 @@ export default function App() {
             }}
           >
             <Routes />
-            <Button onClick={handleclick} variant='contained'>
-              toggle loading
-            </Button>
           </div>
           <Loading start={isloading} />
         </NotesContext.Provider>
