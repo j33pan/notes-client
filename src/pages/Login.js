@@ -1,6 +1,7 @@
 import Auth from '@aws-amplify/auth';
 import { Button, FormGroup, FormLabel, TextField } from '@material-ui/core';
 import React from 'react';
+import { useHistory } from 'react-router';
 import { useNotesContext } from '../libs/contextLib';
 
 export default function Login() {
@@ -15,12 +16,13 @@ export default function Login() {
     return email.length > 0 && pwd.length > 0;
   };
 
+  const history = useHistory();
   const handlesubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await Auth.signIn(email, pwd);
       setIsauthenticated(true);
-      alert('logged in!');
+      history.push('/');
       console.log(response);
     } catch (error) {
       alert(error.message);

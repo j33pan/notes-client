@@ -4,6 +4,7 @@ import Routes from './Routes';
 import { NotesContext } from './libs/contextLib';
 import { Button } from '@material-ui/core';
 import Auth from '@aws-amplify/auth';
+import { useHistory } from 'react-router';
 export default function App() {
   const [isgettingsession, setIsgettingsession] = React.useState(true);
   const [isauthenticated, setIsauthenticated] = React.useState(false);
@@ -24,9 +25,11 @@ export default function App() {
     setIsgettingsession(false);
   };
 
+  const history = useHistory();
   const handlelogout = async () => {
     await Auth.signOut();
     setIsauthenticated(false);
+    history.push('/login');
   }
 
   React.useEffect(() => {
