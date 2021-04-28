@@ -1,8 +1,10 @@
 import Auth from '@aws-amplify/auth';
 import { Button, FormGroup, FormLabel, TextField } from '@material-ui/core';
 import React from 'react';
+import { useNotesContext } from '../libs/contextLib';
 
 export default function Login() {
+  const { setIsauthenticated } = useNotesContext();
   const [email, setemail] = React.useState('');
   const [pwd, setpwd] = React.useState('');
 
@@ -17,6 +19,7 @@ export default function Login() {
     e.preventDefault();
     try {
       const response = await Auth.signIn(email, pwd);
+      setIsauthenticated(true);
       alert('logged in!');
       console.log(response);
     } catch (error) {
