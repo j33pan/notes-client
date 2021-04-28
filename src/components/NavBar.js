@@ -29,7 +29,12 @@ export default function NavBar() {
             </>
           ) : (
             <>
-              <Button style={{ color: 'inherit' }}>Signup</Button>
+              <Button
+                onClick={() => handlelink('/signup')}
+                style={{ color: 'inherit' }}
+              >
+                Signup
+              </Button>
               <Button
                 style={{ color: 'inherit' }}
                 onClick={() => handlelink('/login')}
