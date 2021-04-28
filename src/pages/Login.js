@@ -1,25 +1,24 @@
-import { Button, FormGroup, FormLabel, TextField, Typography } from '@material-ui/core';
+import { Button, FormGroup, FormLabel, TextField } from '@material-ui/core';
 import React from 'react';
 
 export default function Login() {
-    const [email, setemail] = React.useState('');
-    const [pwd, setpwd] = React.useState('');
+  const [email, setemail] = React.useState('');
+  const [pwd, setpwd] = React.useState('');
 
-    const handleemail = (e) => setemail(e.target.value);
-    const handlepwd = (e) => setpwd(e.target.value);
+  const handleemail = (e) => setemail(e.target.value);
+  const handlepwd = (e) => setpwd(e.target.value);
 
-    const validateform = () => {
-      return email.length > 0 && pwd.length > 0;
-    };
+  const validateform = () => {
+    return email.length > 0 && pwd.length > 0;
+  };
 
-    const handlesubmit = (e) => {
-      e.preventDefault();
-    };
+  const handlesubmit = (e) => {
+    e.preventDefault();
+  };
 
   return (
     <div>
-      <div style={{}}>
-        <form onSubmit={handlesubmit} noValidate>
+        <form onSubmit={handlesubmit} noValidate style={{width:'40vh', minWidth:300}}>
           <FormGroup>
             <FormLabel>Email</FormLabel>
             <TextField
@@ -42,16 +41,15 @@ export default function Login() {
           </FormGroup>
           <br />
           <Button
-                     type='submit'
-                              disabled={!validateform()}
+            type='submit'
+            disabled={!validateform()}
             variant='contained'
-                     color='primary'
-                              fullWidth
+            color='primary'
+            fullWidth
           >
             Login
           </Button>
         </form>
-      </div>
     </div>
   );
 }
