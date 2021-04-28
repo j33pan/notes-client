@@ -6,7 +6,14 @@ export default function App() {
   return (
     <div>
       <NavBar />
-      <div style={{  display:  'flex', flexWrap:  'wrap', justifyContent:'space-around', overflow:'hidden'  }}>
+      <div
+        style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'space-around',
+          overflow: 'hidden',
+        }}
+      >
         <Routes />
       </div>
     </div>
