@@ -8,11 +8,13 @@ export default function Signup() {
   const [email, setemail] = React.useState('');
   const [pwd, setpwd] = React.useState('');
   const [confirmpwd, setconfirmpwd] = React.useState('');
-  const {handlesignup, isconfirmuser} = useNotesContext();
+  const [code, setcode] = React.useState('');
+  const { handlesignup, isconfirmuser, handleconfirm } = useNotesContext();
 
   const handleemail = (e) => setemail(e.target.value);
   const handlepwd = (e) => setpwd(e.target.value);
   const handleconfirmpwd = (e) => setconfirmpwd(e.target.value);
+  const handlecode = (e) => setcode(e.target.value);
 
   const validateform = () => {
     return email.length > 0 && pwd.length > 0 && pwd === confirmpwd;
@@ -21,6 +23,11 @@ export default function Signup() {
   const handlesubmit = async (e) => {
     e.preventDefault();
     handlesignup(email, pwd);
+  };
+
+  const handleconfirmation = async (e) => {
+    e.preventDefault();
+    handleconfirm(email, code, pwd);
   };
 
   function signupform() {
@@ -79,7 +86,31 @@ export default function Signup() {
   }
 
   function confirmsignupform() {
-    return <div>confirm signup</div>
+    return (
+      <form
+        onSubmit={handleconfirmation}
+        style={{ width: '40vh', minWidth: 300 }}
+      >
+        <FormGroup>
+          <FormLabel>Confirmation Code</FormLabel>
+          <TextField
+            value={code}
+            onChange={handlecode}
+            autoFocus
+            variant='outlined'
+          />
+          <br />
+          <Button
+            type='submit'
+            variant='contained'
+            color='primary'
+            disabled={code.length <= 0}
+          >
+            Verify
+          </Button>
+        </FormGroup>
+      </form>
+    );
   }
 
   return <div>{!isconfirmuser ? signupform():confirmsignupform()}</div>;

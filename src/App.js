@@ -48,6 +48,20 @@ export default function App() {
     try {
       const newuser = await Auth.signUp({ username: email, password: pwd });
       console.log(newuser);
+      setIsconfirmuser(true);
+    } catch (error) {
+      handleErr(error);
+    }
+    setIsloading(false);
+  };
+
+  const handleconfirm = async (email, code, pwd) => {
+    setIsloading(true);
+    try {
+      await Auth.confirmSignUp(email, code);
+      await Auth.signIn(email, pwd);
+      setIsauthenticated(true);
+      history.push('/');
     } catch (error) {
       handleErr(error);
     }
@@ -69,6 +83,7 @@ export default function App() {
             handlelogin,
             handlesignup,
             isconfirmuser,
+            handleconfirm,
           }}
         >
           <NavBar />
