@@ -8,11 +8,12 @@ import {
 } from '@material-ui/core';
 import React from 'react';
 import { useHistory } from 'react-router';
+import { useNotesContext } from '../libs/contextLib';
 
 export default function NavBar() {
   const history = useHistory();
   const handlelink = (url) => history.push(url);
-
+  const { isauthenticated } = useNotesContext();
   return (
     <div>
       <AppBar position='fixed' elevation={0}>
@@ -22,13 +23,18 @@ export default function NavBar() {
               <Typography>ATN</Typography>
             </ButtonBase>
           </Box>
-          <Button style={{ color: 'inherit' }}>Signup</Button>
-          <Button
-            style={{ color: 'inherit' }}
-            onClick={() => handlelink('/login')}
-          >
-            Login
-          </Button>
+          {isauthenticated ? <div>
+            <Button style={{ color: 'inherit' }}>Logout</Button>
+          </div> : 
+          <div>          
+            <Button style={{ color: 'inherit' }}>Signup</Button>
+              <Button
+                style={{ color: 'inherit' }}
+                onClick={() => handlelink('/login')}
+              >
+                Login
+            </Button>
+          </div>}
         </Toolbar>
       </AppBar>
       <Toolbar style={{ marginBottom: 20 }} />
