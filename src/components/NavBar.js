@@ -23,18 +23,21 @@ export default function NavBar() {
               <Typography>ATN</Typography>
             </ButtonBase>
           </Box>
-          {isauthenticated ? <div>
-            <Button style={{ color: 'inherit' }}>Logout</Button>
-          </div> : 
-          <div>          
-            <Button style={{ color: 'inherit' }}>Signup</Button>
+          {isauthenticated ? (
+            <>
+              <Button style={{ color: 'inherit' }}>Logout</Button>
+            </>
+          ) : (
+            <>
+              <Button style={{ color: 'inherit' }}>Signup</Button>
               <Button
                 style={{ color: 'inherit' }}
                 onClick={() => handlelink('/login')}
               >
                 Login
-            </Button>
-          </div>}
+              </Button>
+            </>
+          )}
         </Toolbar>
       </AppBar>
       <Toolbar style={{ marginBottom: 20 }} />
