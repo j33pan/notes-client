@@ -5,6 +5,7 @@ import { NotesContext } from './libs/contextLib';
 import { Button } from '@material-ui/core';
 import Auth from '@aws-amplify/auth';
 export default function App() {
+  const [isgettingsession, setIsgettingsession] = React.useState(true);
   const [isauthenticated, setIsauthenticated] = React.useState(false);
   
   const handleclick = () => {
@@ -20,30 +21,38 @@ export default function App() {
     } catch (error) {
       if (error !== 'No current user') alert(error);
     }
+    setIsgettingsession(false);
   };
+
+  const handlelogout = async () => {
+    await Auth.signOut();
+    setIsauthenticated(false);
+  }
 
   React.useEffect(() => {
     getsession();
   }, []);
 
   return (
-    <div>
-      <NotesContext.Provider value={{ isauthenticated, setIsauthenticated }}>
-        <NavBar />
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'space-around',
-            overflow: 'hidden',
-          }}
-        >
-          <Routes />
-          <Button onClick={handleclick} variant='contained'>
-                Check Status
-          </Button>
-        </div>
-      </NotesContext.Provider>
-    </div>
+    !isgettingsession && (
+      <div>
+        <NotesContext.Provider value={{ isauthenticated, setIsauthenticated, handlelogout }}>
+          <NavBar />
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'space-around',
+              overflow: 'hidden',
+            }}
+          >
+            <Routes />
+            <Button onClick={handleclick} variant='contained'>
+              Check Status
+            </Button>
+          </div>
+        </NotesContext.Provider>
+      </div>      
+    )
   );
 }

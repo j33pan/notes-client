@@ -13,7 +13,7 @@ import { useNotesContext } from '../libs/contextLib';
 export default function NavBar() {
   const history = useHistory();
   const handlelink = (url) => history.push(url);
-  const { isauthenticated } = useNotesContext();
+  const { isauthenticated, handlelogout } = useNotesContext();
   return (
     <div>
       <AppBar position='fixed' elevation={0}>
@@ -25,7 +25,9 @@ export default function NavBar() {
           </Box>
           {isauthenticated ? (
             <>
-              <Button style={{ color: 'inherit' }}>Logout</Button>
+              <Button onClick={handlelogout} style={{ color: 'inherit' }}>
+                Logout
+              </Button>
             </>
           ) : (
             <>
