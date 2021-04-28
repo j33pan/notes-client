@@ -13,6 +13,19 @@ export default function App() {
       .catch((e) => alert(e.message));
   };
 
+  const getsession = async () => {
+    try {
+      await Auth.currentSession();
+      setIsauthenticated(true);
+    } catch (error) {
+      if (error !== 'No current user') alert(error);
+    }
+  };
+
+  React.useEffect(() => {
+    getsession();
+  }, []);
+
   return (
     <div>
       <NotesContext.Provider value={{ isauthenticated, setIsauthenticated }}>
