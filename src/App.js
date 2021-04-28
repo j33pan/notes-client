@@ -2,17 +2,16 @@ import React from 'react';
 import NavBar from './components/NavBar';
 import Routes from './Routes';
 import { NotesContext } from './libs/contextLib';
-import { Button } from '@material-ui/core';
 import Auth from '@aws-amplify/auth';
 import { useHistory } from 'react-router';
 import Loading from './components/Loading';
+import { handleErr } from './libs/errLib';
+
 export default function App() {
   const [isgettingsession, setIsgettingsession] = React.useState(true);
   const [isauthenticated, setIsauthenticated] = React.useState(false);
   const [isloading, setIsloading] = React.useState(false);
   const history = useHistory();
-
-  const handleclick = () => setIsloading(!isloading);
 
   const getsession = async () => {
     try {
@@ -38,7 +37,7 @@ export default function App() {
       history.push('/');
       console.log(response);
     } catch (error) {
-      alert(error.message);
+      handleErr(error);
     }
     setIsloading(false);
   };
