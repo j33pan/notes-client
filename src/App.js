@@ -5,15 +5,15 @@ import { NotesContext } from './libs/contextLib';
 import { Button } from '@material-ui/core';
 import Auth from '@aws-amplify/auth';
 import { useHistory } from 'react-router';
+import Loading from './components/Loading';
 export default function App() {
   const [isgettingsession, setIsgettingsession] = React.useState(true);
   const [isauthenticated, setIsauthenticated] = React.useState(false);
-  
-  const handleclick = () => {
-    Auth.currentSession()
-      .then((x) => console.log(x))
-      .catch((e) => alert(e.message));
-  };
+  const [isloading, setIsloading] = React.useState(false);
+
+  const handleclick = () => setIsloading(!isloading);
+  const handlestartloading = () => setIsloading(true);
+  const handlestoploading = () => setIsloading(false);
 
   const getsession = async () => {
     try {
@@ -39,7 +39,9 @@ export default function App() {
   return (
     !isgettingsession && (
       <div>
-        <NotesContext.Provider value={{ isauthenticated, setIsauthenticated, handlelogout }}>
+        <NotesContext.Provider
+          value={{ isauthenticated, setIsauthenticated, handlelogout }}
+        >
           <NavBar />
           <div
             style={{
@@ -51,11 +53,12 @@ export default function App() {
           >
             <Routes />
             <Button onClick={handleclick} variant='contained'>
-              Check Status
+              toggle loading
             </Button>
           </div>
+          <Loading start={isloading} />
         </NotesContext.Provider>
-      </div>      
+      </div>
     )
   );
 }
