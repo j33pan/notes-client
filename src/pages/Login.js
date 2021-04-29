@@ -27,7 +27,7 @@ export default function Login() {
       <form
         onSubmit={handlesubmit}
         noValidate
-        style={{ width: '40vh', minWidth: 300 }}
+        style={{ width: '40vw', minWidth: 300 }}
       >
         <FormGroup>
           <FormLabel>Email</FormLabel>
